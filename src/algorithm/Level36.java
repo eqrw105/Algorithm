@@ -14,17 +14,31 @@ public class Level36 {
 	}
 	
 	private static String solution(char[] arr) {
+//		String answer = "";
+//		Stack<Character> stack = new Stack();
+//		
+//		for (Character x: arr) {
+//			if (x == '(') {
+//				stack.add(x);
+//			} else if (x == ')' && !stack.isEmpty()) {
+//				stack.pop();
+//			} else if(stack.isEmpty()) {
+//				answer += x;
+//			}
+//		}
+		
 		String answer = "";
 		Stack<Character> stack = new Stack();
 		
 		for (Character x: arr) {
-			if (x == '(') {
-				stack.add(x);
-			} else if (x == ')' && !stack.isEmpty()) {
-				stack.pop();
-			} else if(stack.isEmpty()) {
-				answer += x;
+			if (x == ')') {
+				while(stack.pop()!='(');
+			} else {
+				stack.push(x);
 			}
+		}
+		for (Character x: stack) {
+			answer += x;
 		}
 
 		return answer;
