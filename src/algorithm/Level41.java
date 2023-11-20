@@ -15,30 +15,56 @@ public class Level41 {
 		System.out.print(solution(n, k));
 	}
 	
+//	private static String solution(String n, String k) {
+//		String answer = "";
+//		Queue<Character> queue2 = new LinkedList<>();
+//		
+//		for(char x: k.toCharArray()) {
+//			queue2.add(x);
+//		}
+//		
+//		int cnt = 0;
+//		
+//		for(char x: n.toCharArray()) {
+//			while(!queue2.isEmpty()) {
+//				char s = queue2.poll();
+//				if (x == s) {
+//					cnt++;
+//					break;
+//				}
+//			}
+//		}
+//		
+//		answer = cnt == n.length() ? "YES" : "NO";
+//			
+//
+//		return answer;
+//	}
+	
 	private static String solution(String n, String k) {
 		String answer = "";
+		Queue<Character> needQueue = new LinkedList<>();
 		Queue<Character> queue = new LinkedList<>();
-		Queue<Character> queue2 = new LinkedList<>();
-		
-		for(char x: k.toCharArray()) {
-			queue2.add(x);
-		}
-		
-		int cnt = 0;
 		
 		for(char x: n.toCharArray()) {
-			while(!queue2.isEmpty()) {
-				char s = queue2.poll();
-				if (x == s) {
-					cnt++;
-					break;
-				}
-			}
+			needQueue.add(x);
 		}
 		
-		answer = cnt == n.length() ? "YES" : "NO";
-			
+		for(char x: k.toCharArray()) {
+			queue.add(x);
+		}
+		
+		while(!queue.isEmpty() && !needQueue.isEmpty()) {
+			char s = queue.poll();
+			if (needQueue.contains(s)) {
+				char c = needQueue.poll();
+				if (c != s) {
+					return "NO";
+				}
+			}
+		}	
 
+		answer = needQueue.isEmpty() ? "YES" : "NO";
 		return answer;
 	}
 }
